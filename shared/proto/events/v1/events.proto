@@ -2,21 +2,27 @@ syntax = "proto3";
 
 package events.v1;
 
+import "google/protobuf/timestamp.proto";
+
 message Event {
-  singular string description = 1;
-  singular map<string, string> tags = 2;
-  singular Timestamp timestamp = 3;
+  string description = 1;
+  map<string, string> tags = 2;
+  google.protobuf.Timestamp timestamp = 3;
 }
 
 message EventChunk {
   repeated Event events = 1;
-  singular int32 page = 2;
+  int32 page = 2;
 }
 
 message GetEventRequest {
-  singular Interval interval = 1;
-  singular int32 page = 2;
-  optional map<string, string> tags = 3;
+  message Interval {
+    google.protobuf.Timestamp start = 1;
+    google.protobuf.Timestamp end = 2;
+  }
+  Interval interval = 1;
+  int32 page = 2;
+  map<string, string> tags = 3;
 }
 
 service SearchService {
