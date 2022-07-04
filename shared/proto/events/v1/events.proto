@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package events.v1;
+
+message Event {
+  singular string description = 1;
+  singular map<string, string> tags = 2;
+  singular Timestamp timestamp = 3;
+}
+
+message EventChunk {
+  repeated Event events = 1;
+  singular int32 page = 2;
+}
+
+message GetEventRequest {
+  singular Interval interval = 1;
+  singular int32 page = 2;
+  optional map<string, string> tags = 3;
+}
+
+service SearchService {
+  rpc GetEventChunk(GetEventRequest) returns (stream EventChunk) {}
+}
