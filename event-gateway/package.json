@@ -41,6 +41,7 @@
     "nodemon": "^2.0.19",
     "nyc": "^15.1.0",
     "prettier": "^2.1.1",
+    "testdouble": "^3.16.6",
     "ts-node": "^9.0.0",
     "tscpaths": "^0.0.9",
     "typedoc": "^0.19.0",
