@@ -10,7 +10,7 @@
   "keywords": [],
   "scripts": {
     "build": "rm -rf build/* && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build/main && cp -R src/proto build/main",
-    "dev": "nodemon --watch 'src/' --exec 'npm run build && clear && node build/main/index.js' -e ts",
+    "dev": "nodemon --watch 'src/' --exec 'npm run build && clear && node build/main/index.js' -e ts --ignore *.test.ts",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint src --ext .ts --fix",
     "test:lint": "eslint src --ext .ts",
