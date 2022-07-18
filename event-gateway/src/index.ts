@@ -1,25 +1,6 @@
-import { Server, ServerCredentials } from '@grpc/grpc-js';
+import { startGrpcServer } from 'src/grpcServer';
 
-import { SearchServiceService } from './proto/events_grpc_pb';
-import { getEventChunk } from './serviceHandler/searchServiceHandler';
+const HOST = '0.0.0.0';
+const GRPC_PORT = 50051;
 
-const PORT = 50051;
-
-const server = new Server();
-
-server.addService(SearchServiceService, {
-  getEventChunk,
-});
-
-server.bindAsync(
-  `0.0.0.0:${PORT}`,
-  ServerCredentials.createInsecure(),
-  (error: Error | null) => {
-    if (error) {
-      console.error(error);
-      throw error;
-    }
-    server.start();
-    console.log(`Server started on port ${PORT}`);
-  }
-);
+startGrpcServer(HOST, GRPC_PORT);
