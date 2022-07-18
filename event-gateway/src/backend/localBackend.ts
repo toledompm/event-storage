@@ -1,10 +1,9 @@
-import { promises } from 'fs';
-
 import {
   EventBackendContract,
-  EventFilter,
+  EventFilter
 } from 'src/backend/eventBackendContract';
 import { EventChunk } from 'src/proto/events_pb';
+import { writeFile } from 'src/wrappers/fileSystemWrapper';
 
 export class LocalBackend implements EventBackendContract {
   constructor(private readonly storagePath: string) {}
@@ -14,7 +13,7 @@ export class LocalBackend implements EventBackendContract {
     const fileName = `${this.storagePath}/${Date.now().toString()}.json`;
     const eventsJson = JSON.stringify(events);
 
-    return promises.writeFile(fileName, eventsJson);
+    return writeFile(fileName, eventsJson);
   }
 
   async getByFilter(_filter: EventFilter): Promise<EventChunk> {
