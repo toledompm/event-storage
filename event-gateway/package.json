@@ -9,26 +9,26 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "build": "rm -rf build/* && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build/main && cp -R src/proto build/main",
-    "dev": "nodemon --watch 'src/' --exec 'npm run build && clear && node build/main/index.js' -e ts --ignore *.test.ts",
+    "build": "rm -rf build/* && tsc -p tsconfig.${NODE_ENV}.json && tscpaths -p tsconfig.${NODE_ENV}.json -s ./src -o ./build/main && cp -R src/proto build/main",
+    "dev": "NODE_ENV=prod nodemon --watch 'src/' --exec 'npm run build && clear && node build/main/index.js' -e ts --ignore *.test.ts",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint src --ext .ts --fix",
     "test:lint": "eslint src --ext .ts",
     "test:prettier": "prettier \"src/**/*.ts\" --list-different",
-    "test:unit": "nyc --silent ava",
+    "test:unit": "NODE_ENV=test npm run build && clear && nyc --silent ava",
     "proto:build:all": "cd ../shared/proto/events/v1/ && grpc_tools_node_protoc --grpc_out=grpc_js:../../../../event-gateway/src/proto events.proto && grpc_tools_node_protoc --plugin=protoc-gen-ts=../../../../event-gateway/node_modules/.bin/protoc-gen-ts --ts_out=grpc_js:../../../../event-gateway/src/proto --js_out=import_style=commonjs,binary:../../../../event-gateway/src/proto events.proto"
   },
   "engines": {
     "node": ">=10"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.6.7",
-    "grpc-server-reflection": "^0.1.5"
+    "@grpc/grpc-js": "^1.6.7"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/google-protobuf": "^3.15.6",
+    "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "ava": "^3.12.1",
@@ -41,7 +41,7 @@
     "nodemon": "^2.0.19",
     "nyc": "^15.1.0",
     "prettier": "^2.1.1",
-    "testdouble": "^3.16.6",
+    "sinon": "^14.0.0",
     "ts-node": "^9.0.0",
     "tscpaths": "^0.0.9",
     "typedoc": "^0.19.0",

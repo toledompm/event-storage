@@ -1,0 +1,7 @@
+{
+  "backend": {
+    "localBackend": {
+      "path": "/tmp/event_gateway_backend"
+    }
+  }
+}

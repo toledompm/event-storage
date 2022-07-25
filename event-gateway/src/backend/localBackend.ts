@@ -1,19 +1,22 @@
 import {
   EventBackendContract,
-  EventFilter
+  EventFilter,
 } from 'src/backend/eventBackendContract';
 import { EventChunk } from 'src/proto/events_pb';
-import { writeFile } from 'src/wrappers/fileSystemWrapper';
+import { fileWriterContract } from 'src/shared/types';
 
 export class LocalBackend implements EventBackendContract {
-  constructor(private readonly storagePath: string) {}
+  constructor(
+    private readonly storagePath: string,
+    private readonly writeFile: fileWriterContract
+  ) {}
 
   async persistChunk(eventChunk: EventChunk): Promise<void> {
     const events = eventChunk.getEventsList();
     const fileName = `${this.storagePath}/${Date.now().toString()}.json`;
     const eventsJson = JSON.stringify(events);
 
-    return writeFile(fileName, eventsJson);
+    return this.writeFile(fileName, eventsJson);
   }
 
   async getByFilter(_filter: EventFilter): Promise<EventChunk> {

@@ -1,0 +1,1 @@
+export { fileWriterContract } from './fileWriter';
