@@ -8,7 +8,6 @@ const BACKEND_PATH = '/tmp';
 
 const setup = (): { backend: LocalBackend; writeFileMock: sinon.SinonStub } => {
   const writeFileMock = sinon.stub();
-
   const backend = new LocalBackend(BACKEND_PATH, writeFileMock);
 
   return { backend, writeFileMock };

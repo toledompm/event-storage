@@ -19,6 +19,7 @@ const backendFactory: Record<BackendType, backendFactoryFunction> = {
 };
 
 const createBackend = (type: BackendType): EventBackendContract => {
+  console.debug(`Creating backend of type ${type}`);
   return backendFactory[type]();
 };
 
