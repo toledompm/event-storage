@@ -1,1 +1,3 @@
-export { fileWriterContract } from './fileWriter';
+import fileWriterContract from './fileWriter';
+
+export { fileWriterContract };
