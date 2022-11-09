@@ -12,4 +12,14 @@ const config = {
   },
 };
 
-export default config;
+interface BackendConfigContract {
+  localBackendConfig: {
+    filePath: () => string;
+  };
+}
+
+interface ConfigContract {
+  backend: BackendConfigContract;
+};
+
+export { config, ConfigContract, BackendConfigContract };

@@ -1,9 +1,10 @@
-import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
+import { Map } from 'google-protobuf';
+import { GetEventRequest } from 'src/proto/events_pb';
 import { EventChunk } from 'src/proto/events_pb';
 
 interface EventFilter {
-  partialTags: Record<string, string>;
-  interval: { start: Timestamp; end: Timestamp };
+  partialTags: Map<string, string>;
+  interval: GetEventRequest.Interval | undefined;
 }
 
 interface EventBackendContract {

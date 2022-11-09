@@ -1,11 +1,18 @@
 import { ServerWritableStream } from '@grpc/grpc-js';
+import { getBackendInstance } from 'src/backend/backendInstance';
 import { EventChunk, GetEventRequest } from 'src/proto/events_pb';
 
-const getEventChunk = (
+const getEventChunk = async (
   call: ServerWritableStream<GetEventRequest, EventChunk>
 ) => {
-  // TODO get event chunk from backend
-  call.write(new EventChunk());
+  const backend = getBackendInstance();
+
+  const chunk = await backend.getByFilter({
+    partialTags: call.request.getTagsMap(),
+    interval: call.request.getInterval(),
+  });
+
+  call.write(chunk);
   call.end();
 };
 
